@@ -17,6 +17,7 @@ Employee& Employee::operator=(const Employee& other) {
     ID_ = other.ID_;
     firstName_ = other.firstName_;
     lastName_ = other.lastName_;
+    return *this;
 }
 
 int Employee::getID() const {
