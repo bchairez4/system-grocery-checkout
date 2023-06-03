@@ -79,6 +79,11 @@ void Register::printReceipt() {
     std::cout << '\n';
 
     std::cout << "Thank you for shopping with us!" << '\n';
+
+    //reset variables for next transaction
+    balanceDue_ = 0.00f;
+    tenderReceived_ = 0.00f;
+    changeDue_ = 0.00f;
 }
 
 // Closing the register has to take out money made
