@@ -9,10 +9,10 @@ class Register {
         Cashier cashier_;
         std::vector<Product> productList_;
         Receipt receipt_;
-        float balance_due_;
-        float tender_received_;
-        float change_due_;
-        float deposit_balance_;
+        float balanceDue_;
+        float tenderReceived_;
+        float changeDue_;
+        float depositBalance_;
     public:
         Register();
         Register(const float& balance);
