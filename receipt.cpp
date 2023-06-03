@@ -19,6 +19,12 @@ Receipt& Receipt::operator=(const Receipt& other) {
     return *this;
 }
 
+void Receipt::create(const std::vector<Product>& productList) {
+    for (int i = 0; i < productList.size(); ++i) {
+        productList_.push_back(productList[i]);
+    }
+}
+
 void Receipt::print() {
     for (std::vector<Product>::const_iterator it = productList_.begin(); it != productList_.end(); ++it) {
         std::cout << it->getName() << " " << it->getPrice() << '\n';
