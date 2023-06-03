@@ -19,11 +19,7 @@ Receipt& Receipt::operator=(const Receipt& other) {
 }
 
 void Receipt::print() {
-    //Receipt header (store name, other basic stroe related info)
-    //Cashier name
-    //print contents of productList organized by: product-name  quanitity(?)  price
-    //final total
-    //currency given
-    //change due
-    //Receipt footer (thanks for shopping with us)
+    for (std::vector<Product>::const_iterator it = productList_.begin(); it != productList_.end(); ++it) {
+        std::cout << it->getName() << " " << it->getPrice() << '\n';
+    }
 }
