@@ -16,6 +16,7 @@ Receipt& Receipt::operator=(const Receipt& other) {
     for (int i = 0; i < other.productList_.size(); ++i) {
         productList_.push_back(other.productList_[i]);
     }
+    return *this;
 }
 
 void Receipt::print() {
