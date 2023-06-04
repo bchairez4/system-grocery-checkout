@@ -2,6 +2,12 @@
 
 Lane::Lane() {}
 
+Lane::Lane(const std::vector<Product>& cart) {
+    for (int i = 0; i < cart.size(); ++i) {
+        cart_.push(cart[i]);
+    }
+}
+
 Lane::Lane(const Lane& other) : reg_(other.reg_), cart_(other.cart_) {}
 
 Lane::~Lane() {}
