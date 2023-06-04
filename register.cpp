@@ -28,6 +28,10 @@ Register& Register::operator=(const Register& other) {
     return *this;
 }
 
+Cashier Register::getCashier() const {
+    return cashier_;
+}
+
 float Register::getBalanceDue() const {
     return balanceDue_;
 }
@@ -40,8 +44,12 @@ int Register::getDepositBalance() const {
     return depositBalance_;
 }
 
-float Register::getProductPrice(const Product& product) {
+float Register::getProductPrice(const Product& product) const {
     return product.getPrice();
+}
+
+void Register::setCashier(const Cashier& cashier) {
+    cashier_ = cashier;
 }
 
 void Register::addProduct(const Product& product) {
