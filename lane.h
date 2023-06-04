@@ -12,6 +12,7 @@ class Lane {
         std::queue<Product> cart_;
     public:
         Lane();
+        Lane(const std::vector<Product>& cart);
         Lane(const Lane& other);
         ~Lane();
         Lane& operator=(const Lane& other);
