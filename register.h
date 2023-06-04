@@ -19,10 +19,12 @@ class Register {
         Register(const Register& other);
         ~Register();
         Register& operator=(const Register& other);
+        Cashier getCashier() const;
         float getBalanceDue() const;
         float getChangeDue() const;
         int getDepositBalance() const;
-        float getProductPrice(const Product& product);
+        float getProductPrice(const Product& product) const;
+        void setCashier(const Cashier& cashier);
         void addProduct(const Product& product);
         void removeProduct(const Product& product);
         void checkout(const float& tender_received);
