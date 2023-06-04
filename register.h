@@ -19,6 +19,8 @@ class Register {
         Register(const Register& other);
         ~Register();
         Register& operator=(const Register& other);
+        float getBalanceDue() const;
+        float getChangeDue() const;
         int getDepositBalance() const;
         float getProductPrice(const Product& product);
         void addProduct(const Product& product);
