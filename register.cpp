@@ -28,6 +28,14 @@ Register& Register::operator=(const Register& other) {
     return *this;
 }
 
+float Register::getBalanceDue() const {
+    return balanceDue_;
+}
+
+float Register::getChangeDue() const {
+    return changeDue_;
+}
+
 int Register::getDepositBalance() const {
     return depositBalance_;
 }
