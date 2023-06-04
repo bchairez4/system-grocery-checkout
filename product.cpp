@@ -1,22 +1,22 @@
 #include "product.h"
 
-Product::Product() : ID_(-1), name_("NULL"), price_(-1.0f) {}
+Product::Product() : department_("NULL"), name_("NULL"), price_(-1.0f) {}
 
-Product::Product(const int& ID, const std::string& name, const float& price) : ID_(ID), name_(name), price_(price) {}
+Product::Product(const std::string& department, const std::string& name, const float& price) : department_(department), name_(name), price_(price) {}
 
-Product::Product(const Product& other) : ID_(other.ID_), name_(other.name_), price_(other.price_) {}
+Product::Product(const Product& other) : department_(other.department_), name_(other.name_), price_(other.price_) {}
 
 Product::~Product() {}
 
 Product& Product::operator=(const Product& other) {
-    ID_ = other.ID_;
+    department_ = other.department_;
     name_ = other.name_;
     price_ = other.price_;
     return *this;
 }
 
-int Product::getID() const {
-    return ID_;
+std::string Product::getDepartment() const {
+    return department_;
 }
 
 std::string Product::getName() const {
@@ -27,8 +27,8 @@ float Product::getPrice() const {
     return price_;
 }
 
-void Product::setID(const int& ID) {
-    ID_ = ID;
+void Product::setDepartment(const std::string& department) {
+    department_ = department;
 }
 
 void Product::setName(const std::string& name) {
