@@ -51,6 +51,6 @@ void Lane::removeProduct(const Product& product) {
     reg_.removeProduct(product);
 }
 
-void Lane::checkout(const float& tender_given) {
-    reg_.checkout(tender_given);
+void Lane::checkout(const float& tenderReceived) {
+    reg_.checkout(tenderReceived);
 }
