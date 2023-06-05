@@ -27,7 +27,7 @@ class Register {
         void setCashier(const Cashier& cashier);
         void addProduct(const Product& product);
         void removeProduct(const Product& product);
-        void checkout(const float& tender_received);
+        void checkout(const float& tenderReceived);
         void printReceipt();
         float close();
 };
