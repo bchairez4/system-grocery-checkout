@@ -23,7 +23,7 @@ class Lane {
         float closeRegister();
         void scanProducts();
         void removeProduct(const Product& product);
-        void checkout(const float& tender_given);
+        void checkout(const float& tenderReceived);
 };
 
 #endif
