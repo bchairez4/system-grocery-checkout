@@ -5,10 +5,15 @@ Register::Register(): balanceDue_(0.00f), tenderReceived_(0.00f), changeDue_(0.0
 Register::Register(const float& depositBalance) : balanceDue_(0.00f), tenderReceived_(0.00f), changeDue_(0.00f), depositBalance_(depositBalance) {}
 
 Register::Register(const Register& other) 
-: cashier_(other.cashier_), receipt_(other.receipt_), balanceDue_(other.balanceDue_), tenderReceived_(other.tenderReceived_), changeDue_(other.changeDue_), depositBalance_(other.depositBalance_) {
+: cashier_(other.cashier_), balanceDue_(other.balanceDue_), tenderReceived_(other.tenderReceived_), changeDue_(other.changeDue_), depositBalance_(other.depositBalance_) {
     productList_.clear();
     for (int i = 0; i < other.productList_.size(); ++i) {
         productList_.push_back(other.productList_[i]);
+    }
+
+    receipts_.clear();
+    for (int i = 0; i < other.receipts_.size(); ++i) {
+        receipts_.push_back(other.receipts_[i]);
     }
 }
 
@@ -20,7 +25,10 @@ Register& Register::operator=(const Register& other) {
     for (int i = 0; i < other.productList_.size(); ++i) {
         productList_.push_back(other.productList_[i]);
     }
-    receipt_ = other.receipt_;
+    receipts_.clear();
+    for (int i = 0; i < other.receipts_.size(); ++i) {
+        receipts_.push_back(other.receipts_[i]);
+    }
     balanceDue_ = other.balanceDue_;
     tenderReceived_ = other.tenderReceived_;
     changeDue_ = other.changeDue_;
@@ -30,6 +38,10 @@ Register& Register::operator=(const Register& other) {
 
 Cashier Register::getCashier() const {
     return cashier_;
+}
+
+std::vector<Receipt> Register::getReceipts() const {
+    return receipts_;
 }
 
 float Register::getBalanceDue() const {
@@ -77,7 +89,7 @@ void Register::checkout(const float& tenderReceived) {
 }
 
 void Register::printReceipt() {
-    receipt_.create(productList_);
+    Receipt receipt(productList_);
 
     std::cout << "Cherries Grocery Store" << '\n';
     std::cout << "Where Good Quality Matters." << '\n';
@@ -86,7 +98,7 @@ void Register::printReceipt() {
     std::cout << "Cashier: " << cashier_.getFirstName() << " " << cashier_.getLastName().at(0) << "." << '\n';
     std::cout << '\n';
 
-    receipt_.print();
+    receipt.print();
     std::cout << '\n';
 
     std::cout << "Balance Due: $" << balanceDue_ << '\n';
@@ -95,6 +107,9 @@ void Register::printReceipt() {
     std::cout << '\n';
 
     std::cout << "Thank you for shopping with us!" << '\n';
+
+    //save receipt to history of receipts
+    receipts_.push_back(receipt);
 
     //reset variables for next transaction
     balanceDue_ = 0.00f;
@@ -105,10 +120,8 @@ void Register::printReceipt() {
 // Closing the register has to take out money made
 float Register::close() {
     Cashier null_cashier;
-    Receipt null_receipt;
 
     cashier_ = null_cashier;
-    receipt_ = null_receipt;
     productList_.clear();
     
     float deposit = depositBalance_;
