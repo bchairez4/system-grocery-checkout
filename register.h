@@ -8,7 +8,7 @@ class Register {
     private:
         Cashier cashier_;
         std::vector<Product> productList_;
-        Receipt receipt_;
+        std::vector<Receipt> receipts_;
         float balanceDue_;
         float tenderReceived_;
         float changeDue_;
@@ -20,6 +20,7 @@ class Register {
         ~Register();
         Register& operator=(const Register& other);
         Cashier getCashier() const;
+        std::vector<Receipt> getReceipts() const;
         float getBalanceDue() const;
         float getChangeDue() const;
         int getDepositBalance() const;
