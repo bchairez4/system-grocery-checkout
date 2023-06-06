@@ -10,10 +10,10 @@ class Receipt {
         std::vector<Product> productList_;
     public:
         Receipt();
+        Receipt(const std::vector<Product>& productList);
         Receipt(const Receipt& other);
         ~Receipt();
         Receipt& operator=(const Receipt& other);
-        void create(const std::vector<Product>& productList);
         void print();
 };
 
