@@ -1,9 +1,9 @@
 #ifndef CASHIER_H
 #define CASHIER_H
 
-#include "employee.cpp"
+#include "person.cpp"
 
-class Cashier : public Employee {
+class Cashier : public Person {
     private:
         int pin_;
     public:
