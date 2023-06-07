@@ -15,6 +15,7 @@ Lane::~Lane() {}
 Lane& Lane::operator=(const Lane& other) {
     reg_ = other.reg_;
     cart_ = other.cart_;
+    return *this;
 }
 
 Cashier Lane::getCurrentCashier() const {
@@ -40,7 +41,7 @@ float Lane::closeRegister() {
 }
 
 void Lane::scanProducts() {
-    // Simulates scanning an item from the treadmill one at a time as a customer unloads thier cart
+    // Simulates scanning an item from the treadmill one at a time as a customer unloads their cart
     while (!cart_.empty()) {
         reg_.addProduct(cart_.front());
         cart_.pop();
@@ -53,4 +54,5 @@ void Lane::removeProduct(const Product& product) {
 
 void Lane::checkout(const float& tenderReceived) {
     reg_.checkout(tenderReceived);
+    reg_.printReceipt();
 }
