@@ -4,8 +4,6 @@
 #include "register.cpp"
 #include <queue>
 
-// A lane consists of a cashier, a cash register, and the items from a customers cart
-
 class Lane {
     private:
         Register reg_;
