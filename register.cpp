@@ -40,6 +40,10 @@ Cashier Register::getCashier() const {
     return cashier_;
 }
 
+std::vector<Product> Register::getProductList() const {
+    return productList_;
+}
+
 std::vector<Receipt> Register::getReceipts() const {
     return receipts_;
 }
@@ -71,8 +75,7 @@ void Register::addProduct(const Product& product) {
 
 // erases first found instance of given product
 void Register::removeProduct(const Product& product) {
-    std::vector<Product>::iterator it = productList_.begin();
-    for (; it != productList_.end(); ++it) {
+    for (std::vector<Product>::iterator it = productList_.begin(); it != productList_.end(); ++it) {
         if (it->getName() == product.getName()) {
             productList_.erase(it);
             balanceDue_ -= product.getPrice();
