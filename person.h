@@ -1,18 +1,18 @@
-#ifndef EMPLOYEE_H
-#define EMPLOYEE_H
+#ifndef PERSON_H
+#define PERSON_H
 
 #include <string>
 
-class Employee {
+class Person {
     private:
         std::string firstName_;
         std::string lastName_;
     public:
-        Employee();
-        Employee(const std::string& firstName, const std::string& lastName);
-        Employee(const Employee& other);
-        ~Employee();
-        Employee& operator=(const Employee& other);
+        Person();
+        Person(const std::string& firstName, const std::string& lastName);
+        Person(const Person& other);
+        ~Person();
+        Person& operator=(const Person& other);
         std::string getFirstName() const;
         std::string getLastName() const;
         std::string getFullName() const;
