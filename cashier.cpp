@@ -3,10 +3,10 @@
 Cashier::Cashier() : pin_(-1) {}
 
 Cashier::Cashier(const int& pin, const std::string& firstName, const std::string& lastName) 
-: Employee(firstName, lastName), pin_(pin) {}
+: Person(firstName, lastName), pin_(pin) {}
 
 Cashier::Cashier(const Cashier& other)
-: Employee(other.getFirstName(), other.getLastName()), pin_(other.pin_) {}
+: Person(other.getFirstName(), other.getLastName()), pin_(other.pin_) {}
 
 Cashier::~Cashier() {}
 
