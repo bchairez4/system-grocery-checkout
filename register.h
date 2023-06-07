@@ -20,6 +20,7 @@ class Register {
         ~Register();
         Register& operator=(const Register& other);
         Cashier getCashier() const;
+        std::vector<Product> getProductList() const;
         std::vector<Receipt> getReceipts() const;
         float getBalanceDue() const;
         float getChangeDue() const;
