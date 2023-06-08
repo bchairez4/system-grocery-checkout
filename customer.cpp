@@ -6,6 +6,7 @@ Customer::Customer(const std::string& firstName, const std::string& lastName, co
 : Person(firstName, lastName), phoneNumber_(phoneNumber), rewardPoints_(rewardPoints) {}
 
 Customer::Customer(const Customer& other) : phoneNumber_(other.phoneNumber_), rewardPoints_(other.rewardPoints_) {
+    cart_.clear();
     for (int i = 0; i < other.cart_.size(); ++i) {
         cart_.push_back(cart_[i]);
     }
@@ -16,6 +17,7 @@ Customer::~Customer() {}
 Customer& Customer::operator=(const Customer& other) {
     setFirstName(other.getFirstName());
     setLastName(other.getLastName());
+    cart_.clear();
     for (int i = 0; i < other.cart_.size(); ++i) {
         cart_.push_back(cart_[i]);
     }
