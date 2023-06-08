@@ -1,0 +1,16 @@
+Bakery      Cake        12.99
+Bakery      Bread       2.99
+Deli        Cheese      2.50
+Deli        Milk        4.99
+Deli        Yogurt      1.99
+Grocery     Cereal      8.99
+Grocery     Popcorn     3.99
+Grocery     Napkins     2.00
+Meat        Chicken     2.99
+Meat        Steak       5.99
+Produce     Apple       0.99
+Produce     Banana      1.99
+Produce     Pear        0.50
+Produce     Watermelon  6.99
+Seafood     Fish        3.99
+Seafood     Shrimp      5.99
