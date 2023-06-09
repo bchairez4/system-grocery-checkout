@@ -1,6 +1,6 @@
 #include "lane.h"
 
-Lane::Lane() {}
+Lane::Lane() : signedIn_(false) {}
 
 Lane::Lane(const std::vector<Product>& cart) {
     for (int i = 0; i < cart.size(); ++i) {
@@ -8,11 +8,12 @@ Lane::Lane(const std::vector<Product>& cart) {
     }
 }
 
-Lane::Lane(const Lane& other) : reg_(other.reg_), cart_(other.cart_) {}
+Lane::Lane(const Lane& other) : signedIn_(other.signedIn_), reg_(other.reg_), cart_(other.cart_) {}
 
 Lane::~Lane() {}
 
 Lane& Lane::operator=(const Lane& other) {
+    signedIn_ = other.signedIn_;
     reg_ = other.reg_;
     cart_ = other.cart_;
     return *this;
@@ -30,11 +31,39 @@ std::queue<Product> Lane::getCart() const {
     return cart_;
 }
 
+bool Lane::isSignedIn() const {
+    return signedIn_;
+}
+
+bool Lane::isAssigned() const {
+    return reg_.getCashier().getFirstName() != "NULL";
+}
+
+void Lane::signIn(const int& pin) {
+    if (isAssigned()) {
+        return;
+    }
+
+    if (reg_.getCashier().getPin() == pin) {
+        signedIn_ = true;
+    }
+}
+
+void Lane::signOut() {
+    if (isAssigned()) {
+        signedIn_ = false;
+    }
+}
+
 void Lane::assignRegister(const Cashier& cashier) {
     reg_.setCashier(cashier);
 }
 
 float Lane::closeRegister() {
+    if (!isAssigned()) {
+        return 0.00f;
+    }
+
     float deposit = reg_.close();
 
     return deposit;
