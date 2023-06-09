@@ -33,6 +33,48 @@ std::unordered_map<std::string, Product>::iterator Database::findProduct(const s
     return it;
 }
 
+Cashier Database::getCashier(const int& pin) const {
+    std::unordered_map<int, Cashier>::const_iterator it = cashiers_.find(pin);
+
+    return it->second;
+}
+
+Customer Database::getCustomer(const int& phoneNumber) const {
+    std::unordered_map<int, Customer>::const_iterator it = customers_.find(phoneNumber);
+
+    return it->second;
+}
+
+Product Database::getProduct(const std::string& name) const {
+    std::unordered_map<std::string, Product>::const_iterator it = products_.find(name);
+
+    return it->second;
+}
+
+bool Database::authenticateCashier(const int& pin) const {
+    std::unordered_map<int, Cashier>::const_iterator it = cashiers_.find(pin);
+
+    if (it != cashiers_.end()) {
+        if (it->second.getPin() == pin) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Database::authenticateCustomer(const int& phoneNumber) const {
+    std::unordered_map<int, Customer>::const_iterator it = customers_.find(phoneNumber);
+
+    if (it != customers_.end()) {
+        if (it->second.getPhoneNumber() == phoneNumber) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool Database::containsCashier(const int& pin) const {
     return cashiers_.count(pin) > 0;
 }
@@ -43,6 +85,31 @@ bool Database::containsCustomer(const int& phoneNumber) const {
 
 bool Database::containsProduct(const std::string& name) const {
     return products_.count(name) > 0;
+}
+
+void Database::displayCashierDatabase() const {
+    for (std::unordered_map<int, Cashier>::const_iterator it = cashiers_.cbegin(); it != cashiers_.cend(); ++it) {
+        std::cout << it->second.getPin() << " "
+                  << it->second.getFirstName() << " "
+                  << it->second.getLastName() << '\n';
+    }
+}
+
+void Database::displayCustomerDatabase() const {
+    for (std::unordered_map<int, Customer>::const_iterator it = customers_.cbegin(); it != customers_.cend(); ++it) {
+        std::cout << it->second.getFirstName() << " "
+                  << it->second.getLastName() << " "
+                  << it->second.getPhoneNumber() << " "
+                  << it->second.getRewardPoints() << '\n';
+    }
+}
+
+void Database::displayProductDatabase() const {
+    for (std::unordered_map<std::string, Product>::const_iterator it = products_.cbegin(); it != products_.cend(); ++it) {
+        std::cout << it->second.getDepartment() << " " 
+                  << it->second.getName() << " " 
+                  << it->second.getPrice();
+    }
 }
 
 void Database::addCashier(const Cashier& cashier) {
