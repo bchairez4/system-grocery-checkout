@@ -6,6 +6,7 @@
 
 class Lane {
     private:
+        bool signedIn_;
         Register reg_;
         std::queue<Product> cart_;
     public:
@@ -17,6 +18,10 @@ class Lane {
         Cashier getCurrentCashier() const;
         Register getRegister() const;
         std::queue<Product> getCart() const;
+        bool isSignedIn() const;
+        bool isAssigned() const;
+        void signIn(const int& pin);
+        void signOut();
         void assignRegister(const Cashier& cashier);
         float closeRegister();
         void scanProducts();
