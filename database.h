@@ -20,9 +20,17 @@ class Database {
         std::unordered_map<int, Cashier>::iterator findCashier(const int& pin);
         std::unordered_map<int, Customer>::iterator findCustomer(const int& phoneNumber);
         std::unordered_map<std::string, Product>::iterator findProduct(const std::string& name);
+        Cashier getCashier(const int& pin) const;
+        Customer getCustomer(const int& phoneNumber) const;
+        Product getProduct(const std::string& name) const;
+        bool authenticateCashier(const int& pin) const;
+        bool authenticateCustomer(const int& phoneNumber) const;
         bool containsCashier(const int& pin) const;
         bool containsCustomer(const int& phoneNumber) const;
         bool containsProduct(const std::string& name) const;
+        void displayCashierDatabase() const;
+        void displayCustomerDatabase() const;
+        void displayProductDatabase() const;
         void addCashier(const Cashier& cashier);
         void addCustomer(const Customer& customer);
         void addProduct(const Product& product);
