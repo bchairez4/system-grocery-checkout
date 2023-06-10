@@ -24,6 +24,24 @@ Customer& Customer::operator=(const Customer& other) {
     return *this;
 }
 
+std::vector<Product> Customer::getCart() const {
+    return cart_;
+}
+
+bool Customer::contains(const std::string& productName) const{
+    for (std::vector<Product>::const_iterator it = cart_.cbegin(); it != cart_.cend(); ++it) {
+        if (it->getName() == productName) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Customer::emptyCart() const {
+    return cart_.empty();
+}
+
 int Customer::getPhoneNumber() const {
     return phoneNumber_;
 }
@@ -57,4 +75,12 @@ void Customer::removeFromCart(const Product& product) {
             return;
         }
     }
+}
+
+void Customer::displayCart() const {
+    std::cout << "Current Cart:" << '\n';
+    for (std::vector<Product>::const_iterator it = cart_.cbegin(); it != cart_.cend(); ++it) {
+        std::cout << it->getName() << " " << it->getPrice() << '\n';
+    }
+    std::cout << '\n';
 }
