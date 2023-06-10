@@ -15,6 +15,9 @@ class Customer : public Person {
         Customer(const Customer& other);
         ~Customer();
         Customer& operator=(const Customer& other);
+        std::vector<Product> getCart() const;
+        bool contains(const std::string& productName) const;
+        bool emptyCart() const;
         int getPhoneNumber() const;
         int getRewardPoints() const;
         void setPhoneNumber(const int& phoneNumber);
@@ -22,6 +25,7 @@ class Customer : public Person {
         void setCart(const std::vector<Product>& cart);
         void addToCart(const Product& product);
         void removeFromCart(const Product& product);
+        void displayCart() const;
 };
 
 #endif
