@@ -69,8 +69,13 @@ float Lane::closeRegister() {
     return deposit;
 }
 
+void Lane::addProductsToLane(const std::vector<Product>& cart) {
+    for (std::vector<Product>::const_iterator it = cart.cbegin(); it != cart.cend(); ++it) {
+        cart_.push(*it);
+    }
+}
+
 void Lane::scanProducts() {
-    // Simulates scanning an item from the treadmill one at a time as a customer unloads their cart
     while (!cart_.empty()) {
         reg_.addProduct(cart_.front());
         cart_.pop();
