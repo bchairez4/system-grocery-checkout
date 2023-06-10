@@ -15,16 +15,16 @@ System& System::operator=(const System& other) {
     return *this;
 }
 
-bool System::containsCashier(const Cashier& cashier) const {
-    return database_.containsCashier(cashier.getPin());
+bool System::containsCashier(const int& pin) const {
+    return database_.containsCashier(pin);
 }
 
-bool System::containsCustomer(const Customer& customer) const {
-    return database_.containsCustomer(customer.getPhoneNumber());
+bool System::containsCustomer(const int& phoneNumber) const {
+    return database_.containsCustomer(phoneNumber);
 }
 
-bool System::containsProduct(const Product& product) const {
-    return database_.containsProduct(product.getName());
+bool System::containsProduct(const std::string& name) const {
+    return database_.containsProduct(name);
 }
 
 void System::displayCashierDatabase() const {
@@ -85,6 +85,26 @@ Customer System::getCurrentCustomer() const {
     return customer_;
 }
 
+bool System::customerSignedIn() const {
+    return customer_.getFirstName() != "NULL";
+}
+
+bool System::containsInCart(const std::string& productName) const {
+    return customer_.contains(productName);
+}
+
+bool System::emptyCustomerCart() const {
+    return customer_.emptyCart();
+}
+
+int System::getCustomerRewardPoints() const {
+    return customer_.getRewardPoints();
+}
+
+void System::displayCustomerCart() const {
+    customer_.displayCart();
+}
+
 void System::signInCustomer(const int& phoneNumber) {
     if (database_.authenticateCustomer(phoneNumber)) {
         Customer customer = database_.getCustomer(phoneNumber);
@@ -97,6 +117,12 @@ void System::signOutCustomer() {
         Customer defaultCustomer;
         customer_ = defaultCustomer;
     }
+}
+
+void System::checkOutCustomer(const float& tenderReceived) {
+    lane_.addProductsToLane(customer_.getCart());
+    lane_.scanProducts();
+    lane_.checkout(tenderReceived);
 }
 
 void System::nextCustomer(const Customer& customer) {
