@@ -24,6 +24,7 @@ class Lane {
         void signOut();
         void assignRegister(const Cashier& cashier);
         float closeRegister();
+        void addProductsToLane(const std::vector<Product>& cart);
         void scanProducts();
         void removeProduct(const Product& product);
         void checkout(const float& tenderReceived);
