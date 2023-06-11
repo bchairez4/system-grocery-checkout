@@ -9,17 +9,44 @@ class Product {
         std::string name_;
         float price_;
     public:
-        Product();
-        Product(const std::string& department, const std::string& name, const float& price);
-        Product(const Product& other);
-        ~Product();
-        Product& operator=(const Product& other);
-        std::string getDepartment() const;
-        std::string getName() const;
-        float getPrice() const;
-        void setDepartment(const std::string& department);
-        void setName(const std::string& name);
-        void setPrice(const float& price);
+        Product() : department_("NULL"), name_("NULL"), price_(-1.0f) {}
+
+        Product(const std::string& department, const std::string& name, const float& price) : department_(department), name_(name), price_(price) {}
+
+        Product(const Product& other) : department_(other.department_), name_(other.name_), price_(other.price_) {}
+
+        ~Product() {}
+
+        Product& operator=(const Product& other) {
+            department_ = other.department_;
+            name_ = other.name_;
+            price_ = other.price_;
+            return *this;
+        }
+
+        std::string getDepartment() const {
+            return department_;
+        }
+
+        std::string getName() const {
+            return name_;
+        }
+
+        float getPrice() const {
+            return price_;
+        }
+
+        void setDepartment(const std::string& department) {
+            department_ = department;
+        }
+
+        void setName(const std::string& name) {
+            name_ = name;
+        }
+
+        void setPrice(const float& price) {
+            price_ = price;
+        }
 };
 
 #endif
