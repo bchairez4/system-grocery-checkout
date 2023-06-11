@@ -1,8 +1,8 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "lane.cpp"
-#include "database.cpp"
+#include "lane.h"
+#include "database.h"
 
 class System {
     private:
@@ -11,43 +11,178 @@ class System {
         Customer customer_;
         Database database_;
     public:
-        System();
-        System(const System& other);
-        ~System();
-        System& operator=(const System& other);
-        bool containsCashier(const int& pin) const;
-        bool containsCustomer(const int& phoneNumber) const;
-        bool containsProduct(const std::string& name) const;
-        void displayCashierDatabase() const;
-        void displayCustomerDatabase() const;
-        void displayProductDatabase() const;
-        float getProfit() const;
-        void updateProfit(const float& income);
-        Cashier getCurrentCashier() const;
-        void signInCashier(const int& pin);
-        void signOutCashier();
-        void addCashier(const Cashier& cashier);
-        void removeCashier(const Cashier& cashier);
-        void updateCashier(const Cashier& oldCashier, const Cashier& newCashier);
-        Customer getCurrentCustomer() const;
-        bool customerSignedIn() const;
-        bool containsInCart(const std::string& productName) const;
-        bool emptyCustomerCart() const;
-        int getCustomerRewardPoints() const;
-        void displayCustomerCart() const;
-        void signInCustomer(const int& phoneNumber);
-        void signOutCustomer();
-        void checkOutCustomer(const float& tenderReceived);
-        void nextCustomer(const Customer& customer);
-        void addCustomer(const Customer& customer);
-        void removeCustomer(const Customer& customer);
-        Product getProduct(const std::string& name) const;
-        float getProductPrice(const Product& product) const;
-        void addProductToCart(const Product& product);
-        void removeProductFromCart(const Product& product);
-        void addProduct(const Product& product);
-        void removeProduct(const Product& product);
-        void updateProductPrice(const Product& product, const float& newPrice);
+        System() : profit_(0.00f) {}
+
+        System(const System& other) 
+        : profit_(other.profit_), lane_(other.lane_), customer_(other.customer_), database_(other.database_) {}
+
+        ~System() {}
+
+        System& operator=(const System& other) {
+            profit_ = other.profit_;
+            lane_ = other.lane_;
+            customer_ = other.customer_;
+            database_ = other.database_;
+            return *this;
+        }
+
+        bool containsCashier(const int& pin) const {
+            return database_.containsCashier(pin);
+        }
+
+        bool containsCustomer(const int& phoneNumber) const {
+            return database_.containsCustomer(phoneNumber);
+        }
+
+        bool containsProduct(const std::string& name) const {
+            return database_.containsProduct(name);
+        }
+
+        void displayCashierDatabase() const {
+            database_.displayCashierDatabase();
+        }
+
+        void displayCustomerDatabase() const {
+            database_.displayCustomerDatabase();
+        }
+
+        void displayProductDatabase() const {
+            database_.displayProductDatabase();
+        }
+
+        void displayProductDatabaseByDepartment(const std::string& department) const {
+            database_.displayProductDatabaseByDepartment(department);
+        }
+
+        float getProfit() const {
+            return profit_;
+        }
+
+        void updateProfit(const float& income) {
+            profit_ += income;
+        }
+
+        Cashier getCurrentCashier() const {
+            return lane_.getCurrentCashier();
+        }
+
+        void signInCashier(const int& pin) {
+            if (lane_.isSignedIn()) {
+                return;
+            }
+
+            if (database_.authenticateCashier(pin)) {
+                Cashier cashier = database_.getCashier(pin);
+                lane_.assignRegister(cashier);
+                lane_.signIn(pin);
+            }
+        }
+
+        void signOutCashier() {
+            if (lane_.isSignedIn()) {
+                lane_.signOut();
+            }
+        }
+
+        void addCashier(const Cashier& cashier) {
+            database_.addCashier(cashier);
+        }
+
+        void removeCashier(const Cashier& cashier) {
+            database_.removeCashier(cashier);
+        }
+
+        void updateCashier(const Cashier& oldCashier, const Cashier& newCashier) {
+            database_.updateCashier(oldCashier, newCashier);
+        }
+
+        Customer getCurrentCustomer() const {
+            return customer_;
+        }
+
+        bool customerSignedIn() const {
+            return customer_.getFirstName() != "NULL";
+        }
+
+        bool containsInCart(const std::string& productName) const {
+            return customer_.contains(productName);
+        }
+
+        bool emptyCustomerCart() const {
+            return customer_.emptyCart();
+        }
+
+        int getCustomerRewardPoints() const {
+            return customer_.getRewardPoints();
+        }
+
+        void displayCustomerCart() const {
+            customer_.displayCart();
+        }
+
+        void signInCustomer(const int& phoneNumber) {
+            if (database_.authenticateCustomer(phoneNumber)) {
+                Customer customer = database_.getCustomer(phoneNumber);
+                customer_ = customer;
+            }
+        }
+
+        void signOutCustomer() {
+            if (customer_.getFirstName() != "NULL") {
+                Customer defaultCustomer;
+                customer_ = defaultCustomer;
+            }
+        }
+
+        float checkOutCustomer(const float& tenderReceived) {
+            lane_.addProductsToLane(customer_.getCart());
+            lane_.scanProducts();
+            float income = lane_.checkout(tenderReceived);
+            updateProfit(income);
+            return income;
+        }
+
+        void nextCustomer(const Customer& customer) {
+            customer_ = customer;
+        }
+
+        void addCustomer(const Customer& customer) {
+            database_.addCustomer(customer);
+        }
+
+        void removeCustomer(const Customer& customer) {
+            database_.removeCustomer(customer);
+        }
+
+        Product getProduct(const std::string& name) const {
+            return database_.getProduct(name);
+        }
+
+        float getProductPrice(const Product& product) const {
+            return database_.getProduct(product.getName()).getPrice();
+        }
+
+        void addProductToCart(const Product& product) {
+            customer_.addToCart(product);
+        }
+
+        void removeProductFromCart(const Product& product) {
+            customer_.removeFromCart(product);
+        }
+
+        void addProduct(const Product& product) {
+            database_.addProduct(product);
+        }
+
+        void removeProduct(const Product& product) {
+            database_.removeProduct(product);
+        }
+
+        void updateProductPrice(const Product& product, const float& newPrice) {
+            Product updatedProduct = product;
+            updatedProduct.setPrice(newPrice);
+            database_.updateProduct(product, updatedProduct);
+        }
 };
 
 #endif
