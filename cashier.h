@@ -1,19 +1,36 @@
 #ifndef CASHIER_H
 #define CASHIER_H
 
-#include "person.cpp"
+#include "person.h"
 
 class Cashier : public Person {
     private:
         int pin_;
     public:
-        Cashier();
-        Cashier(const int& pin, const std::string& firstName, const std::string& lastName);
-        Cashier(const Cashier& other);
-        ~Cashier();
-        Cashier& operator=(const Cashier& other);
-        int getPin() const;
-        void setPin(const int& pin);
+        Cashier() : pin_(-1) {}
+
+        Cashier(const int& pin, const std::string& firstName, const std::string& lastName) 
+        : Person(firstName, lastName), pin_(pin) {}
+
+        Cashier(const Cashier& other)
+        : Person(other.getFirstName(), other.getLastName()), pin_(other.pin_) {}
+
+        ~Cashier() {}
+
+        Cashier& operator=(const Cashier& other) {
+            setFirstName(other.getFirstName());
+            setLastName(other.getLastName());
+            pin_  = other.pin_;
+            return *this;
+        }
+
+        int getPin() const {
+            return pin_;
+        }
+
+        void setPin(const int& pin) {
+            pin_ = pin;
+        }
 };
 
 #endif
