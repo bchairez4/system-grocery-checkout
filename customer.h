@@ -28,6 +28,8 @@ class Customer : public Person {
         Customer& operator=(const Customer& other) {
             setFirstName(other.getFirstName());
             setLastName(other.getLastName());
+            phoneNumber_ = other.phoneNumber_;
+            rewardPoints_ = other.rewardPoints_;
             cart_.clear();
             for (int i = 0; i < other.cart_.size(); ++i) {
                 cart_.push_back(cart_[i]);
