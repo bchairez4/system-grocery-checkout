@@ -37,7 +37,8 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Welcome to Cherries Grocery System!" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
-            std::cout << "Please type the appropriate number corresponding top your choice and press \'enter\'." << '\n';
+            std::cout << "Please type in your choice followed by pressing \'enter\'." << '\n';
+            std::cout << '\n';
         }
 
         void displayFarewell() const {
@@ -45,7 +46,26 @@ class Menu {
             std::cout << "Hope to see you again soon." << '\n';
         }
 
+        void displayAdminMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Main Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "1) Display Cashier Database" << '\n';
+            std::cout << "2) Add Cashier to Database" << '\n';
+            std::cout << "3) Remove Cashier From Database" << '\n';
+            std::cout << "4) Display Customer Database" << '\n';
+            std::cout << "5) Add Customer To Database" << '\n';
+            std::cout << "6) Remove Customer From Database" << '\n';
+            std::cout << "7) Display Product Database" << '\n';
+            std::cout << "8) Add Product To Database" << '\n';
+            std::cout << "9) Remove Product From Database" << '\n';
+            std::cout << "0) Exit" << '\n';
+        }
+
         void displayCustomerMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Main Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "1) Sign In" << '\n';
             std::cout << "2) Sign Up" << '\n';
             std::cout << "3) Add Product to Cart" << '\n';
@@ -59,6 +79,9 @@ class Menu {
         }
 
         void displayCustomerRewardMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Main Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "1) Check Reward Points" << '\n';
             std::cout << "2) Add Product to Cart" << '\n';
             std::cout << "3) Remove Product from Cart" << '\n';
@@ -164,7 +187,6 @@ class Menu {
 
             if (!system_.containsCustomer(phoneNumber)) {
                 std::cout << "Error. Number not associated to an account." << '\n';
-                // to do: ask user if they want to sign up instead
                 return;
             }
 
@@ -277,11 +299,9 @@ class Menu {
             std::cout << "Display Products By Category" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
 
-            std::cout << "Type in a category: " << '\n';
+            std::cout << "Type in a category: ";
             std:getline(std::cin, department);
             std::cout << '\n';
-
-            //to do: category input error handling
 
             system_.displayProductDatabaseByDepartment(department);
             std::cout << '\n';
@@ -299,6 +319,7 @@ class Menu {
             }
 
             system_.displayCustomerCart();
+            std::cout << "Current Balance Due: $" << system_.getCustomerCartTotal() << '\n';
             std::cout << '\n';
         }
 
@@ -309,7 +330,34 @@ class Menu {
             std::cout << "Checkout" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
 
-            // to do
+            if (system_.emptyCustomerCart()) {
+                std::cout << "Empty Cart." << '\n';
+                return;
+            }
+
+            system_.displayCustomerCart();
+
+            std::cout << "Amount Due: " << system_.getCustomerCartTotal() << '\n';;
+            std::cout << '\n';
+
+            std::cout << "Pay Amount: $";
+            std::cin >> tenderReceived;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (tenderReceived < system_.getCustomerCartTotal()) {
+                while (tenderReceived < system_.getCustomerCartTotal()) {
+                    std::cout << "Total is $" << system_.getCustomerCartTotal() 
+                              << " and you entered $" << tenderReceived << '\n';
+                    std::cout << "Enter the correct amount: $";
+                    std::cin >> tenderReceived;
+                    std::cin.ignore();
+                    std::cout << '\n';
+                }
+            }
+
+            float income = system_.checkOutCustomer(tenderReceived);
+            std::cout << '\n';
         }
 };
 
