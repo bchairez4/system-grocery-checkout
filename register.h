@@ -138,27 +138,11 @@ class Register {
         }
 
         void printReceipt() {
-            Receipt receipt(productList_);
-
-            std::cout << "Cherries Grocery Store" << '\n';
-            std::cout << "Where Good Quality Matters." << '\n';
-            std::cout << '\n';
-
-            std::cout << "Cashier: " << cashier_.getFirstName() << " " << cashier_.getLastName().at(0) << "." << '\n';
-            std::cout << '\n';
-
-            receipt.print();
-            std::cout << '\n';
-
-            std::cout << "Balance Due: $" << balanceDue_ << '\n';
-            std::cout << "Tender Received: $" <<  tenderReceived_ << '\n';
-            std::cout << "Change: $" << changeDue_ << '\n';
-            std::cout << '\n';
-
-            std::cout << "Thank you for shopping with us!" << '\n';
+            Receipt receipt(productList_, balanceDue_, tenderReceived_, changeDue_);
 
             //save receipt to history of receipts
             generateReceipt();
+            std::cout << "Your receipt has been printed. See you again soon" << '\n';
             receipts_.push_back(receipt);
 
             //reset variables for next transaction
@@ -171,14 +155,9 @@ class Register {
         // Closing the register has to take out money made
         float close() {
             Cashier null_cashier;
-
             cashier_ = null_cashier;
-            productList_.clear();
             
-            float deposit = depositBalance_;
-            depositBalance_ = 0.00f;
-
-            return deposit;
+            return depositBalance_;
         }
 };
 
