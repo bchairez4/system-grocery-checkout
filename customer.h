@@ -63,12 +63,22 @@ class Customer : public Person {
             return rewardPoints_;
         }
 
+        float getCartTotal() const {
+            float currentBalanceDue = 0.00f;
+
+            for (int i = 0; i < cart_.size(); ++i) {
+                currentBalanceDue += cart_[i].getPrice();
+            }
+
+            return currentBalanceDue;
+        }
+
         void setPhoneNumber(const int& phoneNumber) {
             phoneNumber_ = phoneNumber;
         }
 
         void setRewardPoints(const int& rewardPoints) {
-            rewardPoints_ = rewardPoints;
+            rewardPoints_ += rewardPoints;
         }
 
         void setCart(const std::vector<Product>& cart) {
@@ -88,6 +98,10 @@ class Customer : public Person {
                     return;
                 }
             }
+        }
+
+        void clearCart() {
+            cart_.clear();
         }
 
         void displayCart() const {
