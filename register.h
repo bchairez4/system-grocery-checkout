@@ -3,6 +3,7 @@
 
 #include "cashier.h"
 #include "receipt.h"
+#include <fstream>
 
 class Register {
     private:
@@ -100,10 +101,40 @@ class Register {
 
         float checkout(const float& tenderReceived) {
             tenderReceived_  = tenderReceived;
-            changeDue_ = balanceDue_ - tenderReceived_;
-
+            changeDue_ = tenderReceived_ - balanceDue_; 
             depositBalance_ += balanceDue_;
+
             return balanceDue_;
+        }
+
+        void generateReceipt() {
+            std::string receipt = "receipt" + std::to_string(receipts_.size()+1) + ".txt";
+
+            std::ofstream file(receipt, std::ofstream::out);
+
+            if (!file) {
+                return;
+            }
+
+            file << "Cherries Grocery Store" << '\n';
+            file << "Where Good Quality Matters." << '\n';
+            file << '\n';
+
+            file << "Cashier: " << cashier_.getFirstName() << " " << cashier_.getLastName().at(0) << "." << '\n';
+            file << '\n';
+
+            for (int i = 0; i < productList_.size(); ++i) {
+                file << productList_[i].getName() << " " << productList_[i].getPrice() << '\n';
+            }
+
+            file << '\n';
+
+            file << "Balance Due: $" << balanceDue_ << '\n';
+            file << "Tender Received: $" <<  tenderReceived_ << '\n';
+            file << "Change: $" << changeDue_ << '\n';
+            file << '\n';
+
+            file << "Thank you for shopping with us!" << '\n';
         }
 
         void printReceipt() {
@@ -127,12 +158,14 @@ class Register {
             std::cout << "Thank you for shopping with us!" << '\n';
 
             //save receipt to history of receipts
+            generateReceipt();
             receipts_.push_back(receipt);
 
             //reset variables for next transaction
             balanceDue_ = 0.00f;
             tenderReceived_ = 0.00f;
             changeDue_ = 0.00f;
+            productList_.clear();
         }
 
         // Closing the register has to take out money made
