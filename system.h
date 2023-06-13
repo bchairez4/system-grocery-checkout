@@ -11,7 +11,9 @@ class System {
         Customer customer_;
         Database database_;
     public:
-        System() : profit_(0.00f) {}
+        System() : profit_(0.00f) {
+            assignCashier(database_.getCashier(8919));
+        }
 
         System(const System& other) 
         : profit_(other.profit_), lane_(other.lane_), customer_(other.customer_), database_(other.database_) {}
@@ -84,6 +86,15 @@ class System {
             }
         }
 
+        void assignCashier(const Cashier& cashier) {
+            lane_.assignRegister(cashier);
+        }
+
+        void closeOutCashier() {
+            float deposit = lane_.closeRegister();
+            updateProfit(deposit);
+        }
+
         void addCashier(const Cashier& cashier) {
             database_.addCashier(cashier);
         }
@@ -112,6 +123,10 @@ class System {
             return customer_.emptyCart();
         }
 
+        float getCustomerCartTotal() const {
+            return customer_.getCartTotal();
+        }
+
         int getCustomerRewardPoints() const {
             return customer_.getRewardPoints();
         }
@@ -136,14 +151,19 @@ class System {
 
         float checkOutCustomer(const float& tenderReceived) {
             lane_.addProductsToLane(customer_.getCart());
-            lane_.scanProducts();
-            float income = lane_.checkout(tenderReceived);
-            updateProfit(income);
-            return income;
-        }
+            customer_.clearCart();
 
-        void nextCustomer(const Customer& customer) {
-            customer_ = customer;
+            lane_.scanProducts();
+
+            float income = lane_.checkout(tenderReceived);
+            if (customerSignedIn()) {
+                int pointsGained = income/3;
+                customer_.setRewardPoints(pointsGained);
+            }
+
+            updateProfit(income);
+
+            return income;
         }
 
         void addCustomer(const Customer& customer) {
