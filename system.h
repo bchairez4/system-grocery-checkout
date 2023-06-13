@@ -149,21 +149,18 @@ class System {
             }
         }
 
-        float checkOutCustomer(const float& tenderReceived) {
+        void checkoutCustomer(const float& tenderReceived) {
             lane_.addProductsToLane(customer_.getCart());
             customer_.clearCart();
 
             lane_.scanProducts();
 
-            float income = lane_.checkout(tenderReceived);
+            float purchaseAmount = lane_.checkout(tenderReceived);
             if (customerSignedIn()) {
-                int pointsGained = income/3;
+                int pointsGained = purchaseAmount/3;
                 customer_.setRewardPoints(pointsGained);
+                signOutCustomer();
             }
-
-            updateProfit(income);
-
-            return income;
         }
 
         void addCustomer(const Customer& customer) {
