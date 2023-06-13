@@ -186,7 +186,18 @@ class Menu {
             std::cout << '\n';
 
             if (!system_.containsCustomer(phoneNumber)) {
+                char response = 'n';
                 std::cout << "Error. Number not associated to an account." << '\n';
+                std::cout << "Sign Up instead? (y or n): ";
+                std::cin.get(response);
+                std::cin.ignore(100, '\n');
+                std::cout << '\n';
+
+                if (response != 'n') {
+                    signUp();
+                    return;
+                }
+
                 return;
             }
 
@@ -313,7 +324,7 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
 
             if (system_.emptyCustomerCart()) {
-                std::cout << "Cart is empty." << '\n';
+                std::cout << "Empty Cart." << '\n';
                 std::cout << '\n';
                 return;
             }
@@ -331,7 +342,7 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
 
             if (system_.emptyCustomerCart()) {
-                std::cout << "Empty Cart." << '\n';
+                std::cout << "Error. Empty Cart." << '\n';
                 return;
             }
 
@@ -356,7 +367,7 @@ class Menu {
                 }
             }
 
-            float income = system_.checkOutCustomer(tenderReceived);
+            system_.checkoutCustomer(tenderReceived);
             std::cout << '\n';
         }
 };
