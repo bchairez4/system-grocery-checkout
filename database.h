@@ -4,7 +4,6 @@
 #include "cashier.h"
 #include "customer.h"
 #include "product.h"
-#include <fstream>
 #include <unordered_map>
 
 #define CASHIERS "cashiers.txt"
@@ -108,25 +107,25 @@ class Database {
         void displayCashierDatabase() const {
             for (std::unordered_map<int, Cashier>::const_iterator it = cashiers_.cbegin(); it != cashiers_.cend(); ++it) {
                 std::cout << it->second.getPin() << " "
-                        << it->second.getFirstName() << " "
-                        << it->second.getLastName() << '\n';
+                          << it->second.getFirstName() << " "
+                          << it->second.getLastName() << '\n';
             }
         }
 
         void displayCustomerDatabase() const {
             for (std::unordered_map<int, Customer>::const_iterator it = customers_.cbegin(); it != customers_.cend(); ++it) {
                 std::cout << it->second.getFirstName() << " "
-                        << it->second.getLastName() << " "
-                        << it->second.getPhoneNumber() << " "
-                        << it->second.getRewardPoints() << '\n';
+                          << it->second.getLastName() << " "
+                          << it->second.getPhoneNumber() << " "
+                          << it->second.getRewardPoints() << '\n';
             }
         }
 
         void displayProductDatabase() const {
             for (std::unordered_map<std::string, Product>::const_iterator it = products_.cbegin(); it != products_.cend(); ++it) {
                 std::cout << it->second.getDepartment() << " " 
-                        << it->second.getName() << " " 
-                        << it->second.getPrice() << '\n';
+                          << it->second.getName() << " " 
+                          << it->second.getPrice() << '\n';
             }
         }
 
@@ -134,8 +133,8 @@ class Database {
             for (std::unordered_map<std::string, Product>::const_iterator it = products_.cbegin(); it != products_.cend(); ++it) {
                 if (it->second.getDepartment() == department) {
                     std::cout << it->second.getDepartment() << " " 
-                            << it->second.getName() << " " 
-                            << it->second.getPrice() << '\n';
+                              << it->second.getName() << " " 
+                              << it->second.getPrice() << '\n';
                 }
             }
         }
@@ -227,8 +226,8 @@ class Database {
 
             for (std::unordered_map<int, Cashier>::iterator it = cashiers_.begin(); it != cashiers_.end(); ++it) {
                 file << it->second.getPin() << " "
-                    << it->second.getFirstName() << " "
-                    << it->second.getLastName() << '\n';
+                     << it->second.getFirstName() << " "
+                     << it->second.getLastName() << '\n';
             }
         }
 
@@ -241,9 +240,9 @@ class Database {
 
             for (std::unordered_map<int, Customer>::iterator it = customers_.begin(); it != customers_.end(); ++it) {
                 file << it->second.getFirstName() << " " 
-                    << it->second.getLastName() << " "
-                    << it->second.getPhoneNumber() << " "
-                    << it->second.getRewardPoints() << '\n';
+                     << it->second.getLastName() << " "
+                     << it->second.getPhoneNumber() << " "
+                     << it->second.getRewardPoints() << '\n';
             }
         }
 
@@ -256,8 +255,8 @@ class Database {
 
             for (std::unordered_map<std::string, Product>::iterator it = products_.begin(); it != products_.end(); ++it) {
                 file << it->second.getDepartment() << " "
-                    << it->second.getName() << " "
-                    << it->second.getPrice() << '\n';
+                     << it->second.getName() << " "
+                     << it->second.getPrice() << '\n';
             }
         }
 
