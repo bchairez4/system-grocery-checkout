@@ -5,6 +5,7 @@
 #include "customer.h"
 #include "product.h"
 #include <unordered_map>
+#include <fstream>
 
 #define CASHIERS "cashiers.txt"
 #define CUSTOMERS "customers.txt"
