@@ -277,6 +277,14 @@ class Database {
             }
         }
 
+        void updateCustomerRewardPoints(const Customer& customer, const int& rewardPoints) {
+            std::unordered_map<int, Customer>::iterator it = findCustomer(customer.getPhoneNumber());
+
+            if (it != customers_.end()) {
+                it->second.setRewardPoints(rewardPoints);
+            }
+        }
+
         void updateProduct(const Product& oldProduct, const Product& newProduct) {
             std::unordered_map<std::string, Product>::iterator it = findProduct(oldProduct.getName());
 
