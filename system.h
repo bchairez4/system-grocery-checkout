@@ -159,6 +159,7 @@ class System {
             if (customerSignedIn()) {
                 int pointsGained = purchaseAmount/3;
                 customer_.setRewardPoints(pointsGained);
+                database_.updateCustomerRewardPoints(customer_, pointsGained);
                 signOutCustomer();
             }
         }
