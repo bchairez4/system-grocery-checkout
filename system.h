@@ -28,6 +28,10 @@ class System {
             return *this;
         }
 
+        bool adminSignIn() const {
+            return customer_.getFirstName() == "ADMIN";
+        }
+
         bool containsCashier(const int& pin) const {
             return database_.containsCashier(pin);
         }
@@ -66,6 +70,10 @@ class System {
 
         Cashier getCurrentCashier() const {
             return lane_.getCurrentCashier();
+        }
+
+        Cashier getCashier(const int& pin) const {
+            return database_.getCashier(pin);
         }
 
         void signInCashier(const int& pin) {
@@ -109,6 +117,10 @@ class System {
 
         Customer getCurrentCustomer() const {
             return customer_;
+        }
+
+        Customer getCustomer(const int& phoneNumber) const {
+            return database_.getCustomer(phoneNumber);
         }
 
         bool customerSignedIn() const {
