@@ -564,6 +564,11 @@ class Menu {
             }
 
             system_.displayCustomerCart();
+
+            if (system_.customerRewardAvailable()) {
+                std::cout << '\n' << "Reward discount: -$3.00" << '\n';
+            }
+
             std::cout << "Current Balance Due: $" << system_.getCustomerCartTotal() << '\n';
             std::cout << '\n';
         }
@@ -581,8 +586,12 @@ class Menu {
             }
 
             system_.displayCustomerCart();
+            
+            if (system_.customerRewardAvailable()) {
+                std::cout << '\n' << "Reward discount: -$3.00" << '\n';
+            }
 
-            std::cout << "Amount Due: " << system_.getCustomerCartTotal() << '\n';;
+            std::cout << "Amount Due: " << system_.getCustomerCartTotal() << '\n';
             std::cout << '\n';
 
             std::cout << "Pay Amount: $";
@@ -602,7 +611,6 @@ class Menu {
             }
 
             system_.checkoutCustomer(tenderReceived);
-            std::cout << '\n';
         }
 };
 
