@@ -1,3 +1,4 @@
+ADMIN   ADMIN       -9999           -1
 Joe     Doe         8675309         2
 Bob     Billy       9998888         1
 Billy   Bob         1234567         35
