@@ -54,7 +54,7 @@ class Receipt {
             return changeDue_;
         }
 
-        void print() {
+        void print(const bool& discount) {
             std::cout << "Cherries Grocery Store" << '\n';
             std::cout << "Where Good Quality Matters." << '\n';
             std::cout << '\n';
@@ -63,6 +63,10 @@ class Receipt {
                 std::cout << it->getName() << " " << it->getPrice() << '\n';
             }
             std::cout << '\n';
+
+            if (discount) {
+                std::cout << "Reward discount: -$3.00" << '\n';
+            }
 
             std::cout << "Balance Due: $" << balanceDue_ << '\n';
             std::cout << "Tender Received: $" <<  tenderReceived_ << '\n';
