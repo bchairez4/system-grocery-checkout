@@ -96,9 +96,9 @@ class Lane {
             reg_.removeProduct(product);
         }
 
-        float checkout(const float& tenderReceived) {
-            float income = reg_.checkout(tenderReceived);
-            reg_.printReceipt();
+        float checkout(const float& tenderReceived, const float& discount, const bool& isDiscounted) {
+            float income = reg_.checkout(tenderReceived, discount);
+            reg_.printReceipt(isDiscounted);
             return income;
         }
 };
