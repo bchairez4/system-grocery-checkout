@@ -135,6 +135,10 @@ class System {
             return customer_.emptyCart();
         }
 
+        bool customerRewardAvailable() const {
+            return customer_.rewardAvailable();
+        }
+
         float getCustomerCartTotal() const {
             return customer_.getCartTotal();
         }
@@ -166,14 +170,27 @@ class System {
             customer_.clearCart();
 
             lane_.scanProducts();
-
-            float purchaseAmount = lane_.checkout(tenderReceived);
+            
+            float discount = 0.00f;
+            bool isDiscounted  = false;
             if (customerSignedIn()) {
+                if (customer_.getRewardPoints() >= 35) {
+                    discount = 3.00f;
+                    customer_.setRewardPoints(-35);
+                    database_.updateCustomerRewardPoints(customer_, -35);
+                }
+                
+                isDiscounted = (discount != 0.00f);
+                float purchaseAmount = lane_.checkout(tenderReceived, discount, isDiscounted);
                 int pointsGained = purchaseAmount/3;
+                
                 customer_.setRewardPoints(pointsGained);
                 database_.updateCustomerRewardPoints(customer_, pointsGained);
                 signOutCustomer();
-            }
+                return;
+            } 
+
+            float purchaseAmount = lane_.checkout(tenderReceived, discount, isDiscounted);
         }
 
         void addCustomer(const Customer& customer) {
