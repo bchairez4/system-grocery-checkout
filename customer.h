@@ -55,6 +55,10 @@ class Customer : public Person {
             return cart_.empty();
         }
 
+        bool rewardAvailable() const  {
+            return rewardPoints_ >= 35;
+        }
+
         int getPhoneNumber() const {
             return phoneNumber_;
         }
@@ -68,6 +72,10 @@ class Customer : public Person {
 
             for (int i = 0; i < cart_.size(); ++i) {
                 currentBalanceDue += cart_[i].getPrice();
+            }
+
+            if (rewardAvailable()) {
+                currentBalanceDue = (currentBalanceDue - 3.00f >= 0.00f) ? (currentBalanceDue - 3.00f) : 0.00f;
             }
 
             return currentBalanceDue;
