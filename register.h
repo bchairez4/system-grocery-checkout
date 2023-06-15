@@ -99,7 +99,8 @@ class Register {
             }
         }
 
-        float checkout(const float& tenderReceived) {
+        float checkout(const float& tenderReceived, const float& discount) {
+            balanceDue_ -= discount;
             tenderReceived_  = tenderReceived;
             changeDue_ = tenderReceived_ - balanceDue_; 
             depositBalance_ += balanceDue_;
@@ -107,7 +108,7 @@ class Register {
             return balanceDue_;
         }
 
-        void generateReceipt() {
+        void generateReceipt(const bool& discount) {
             std::string receipt = "receipt" + std::to_string(receipts_.size()+1) + ".txt";
 
             std::ofstream file(receipt, std::ofstream::out);
@@ -129,6 +130,10 @@ class Register {
 
             file << '\n';
 
+            if (discount) {
+                file << "Reward Discount: -$3.00" << '\n';
+            }
+
             file << "Balance Due: $" << balanceDue_ << '\n';
             file << "Tender Received: $" <<  tenderReceived_ << '\n';
             file << "Change: $" << changeDue_ << '\n';
@@ -137,11 +142,11 @@ class Register {
             file << "Thank you for shopping with us!" << '\n';
         }
 
-        void printReceipt() {
+        void printReceipt(const bool& discount) {
             Receipt receipt(productList_, balanceDue_, tenderReceived_, changeDue_);
 
             //save receipt to history of receipts
-            generateReceipt();
+            generateReceipt(discount);
             std::cout << "Your receipt has been printed. See you again soon" << '\n';
             receipts_.push_back(receipt);
 
