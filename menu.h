@@ -12,7 +12,10 @@ class Menu {
 
             char input = ' ';
             while (input != 'q') {
-                if (system_.customerSignedIn()) {
+                if (system_.adminSignIn()) {
+                    displayAdminMenu();
+                    input = adminMenu();
+                } else if (system_.customerSignedIn()) {
                     displayCustomerRewardMenu();
                     input = customerRewardMenu();
                 } else {
@@ -91,6 +94,51 @@ class Menu {
             std::cout << "7) Checkout" << '\n';
             std::cout << "8) Exit" << '\n';
             std::cout << '\n';
+        }
+        
+        char adminMenu() {
+            char input = ' ';
+            std::cin.get(input);
+            std::cin.ignore(100, '\n');
+            std::cout << '\n';
+
+            switch(input) {
+                case '1':
+                    displayCashierDatabase();
+                    break;
+                case '2':
+                    addCashierToDatabase();
+                    break;
+                case '3':
+                    removeCashierFromDatabase();
+                    break;
+                case '4':
+                    displayCustomerDatabase();
+                    break;
+                case '5':
+                    addCustomerToDatabase();
+                    break;
+                case '6':
+                    removeCustomerFromDatabase();
+                    break;
+                case '7':
+                    displayProductDatabase();
+                    break;
+                case '8':
+                    addProductToDatabase();
+                    break;
+                case '9':
+                    removeProductFromDatabase();
+                    break;
+                case '0':
+                    return 'q';
+                    break;
+                default:
+                    std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
+            }
+
+            return input;
         }
 
         char customerMenu() {
@@ -171,6 +219,192 @@ class Menu {
             }
 
             return input;
+        }
+
+        void displayCashierDatabase() {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Display Cashier Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            system_.displayCashierDatabase();
+        }
+
+        void addCashierToDatabase() {
+            std::string firstName, lastName = "";
+            int pin = -1;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Add Cashier to Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter new cashier's first name: ";
+            std::getline(std::cin, firstName);
+            std::cout << '\n';
+
+            std::cout << "Enter new cashier's last name: ";
+            std::getline(std::cin, lastName);
+            std::cout << '\n';
+
+            std::cout << "Enter new cashier's pin: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (system_.containsCashier(pin)) {
+                std::cout << "Error. Pin is associated to an existing cashier." << '\n';
+                return;
+            }
+
+            Cashier newCashier(pin, firstName, lastName);
+            system_.addCashier(newCashier);
+
+            std::cout << "Successfully added cashier." << '\n';
+        }
+
+        void removeCashierFromDatabase() {
+            int pin = -1;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Remove Cashier from Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter the pin of the cashier you want to remove: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (!system_.containsCashier(pin)) {
+                std::cout << "Error. Pin provided is not associated to a cashier." << '\n';
+                return;
+            }
+
+            Cashier cashier = system_.getCashier(pin);
+            system_.removeCashier(cashier);
+
+            std::cout << "Successfully removed cashier."  << '\n';
+        }
+
+        void displayCustomerDatabase() {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Display Customer Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            system_.displayCustomerDatabase();
+        }
+
+        void addCustomerToDatabase() {
+            std::string firstName, lastName = "";
+            int phoneNumber = -1;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Add Customer to Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter new customer's first name: ";
+            std::getline(std::cin, firstName);
+            std::cout << '\n';
+
+            std::cout << "Enter new customer's last name: ";
+            std::getline(std::cin, lastName);
+            std::cout << '\n';
+
+            std::cout << "Enter new customer's phone number (ex: 0000000): ";
+            std::cin >> phoneNumber;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (system_.containsCustomer(phoneNumber)) {
+                std::cout << "Error. Phone number provided is associated to an existing customer." << '\n';
+                return;
+            }
+            
+            Customer newCustomer(firstName, lastName, phoneNumber, 0);
+            system_.addCustomer(newCustomer);
+        }
+
+        void removeCustomerFromDatabase() {
+            int phoneNumber = -1;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Remove Customer from Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter the phone number of the customer you want to remove: ";
+            std::cin >> phoneNumber;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (!system_.containsCustomer(phoneNumber)) {
+                std::cout << "Error. Phone number provided is not associated to a customer." << '\n';
+                return;
+            }
+            
+            Customer customer = system_.getCustomer(phoneNumber);
+            system_.removeCustomer(customer);
+
+            std::cout << "Successfully removed customer." << '\n';
+        }
+
+        void displayProductDatabase() {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Display Product Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            system_.displayProductDatabase();
+        }
+
+        void addProductToDatabase() {
+            std::string department, productName = "";
+            float price = 0.00f;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Add Product to Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter new products's department: ";
+            std::getline(std::cin, department);
+            std::cout << '\n';
+
+            std::cout << "Enter new product's name: ";
+            std::getline(std::cin, productName);
+            std::cout << '\n';
+
+            std::cout << "Enter new products's price: ";
+            std::cin >> price;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (system_.containsProduct(productName)) {
+                std::cout << "Error. Product already exists." << '\n';
+                return;
+            }
+            
+            Product newProduct(department, productName, price);
+            system_.addProduct(newProduct);
+
+            std::cout << "Successfully added product." << '\n';
+        }
+
+        void removeProductFromDatabase() {
+            std::string productName = "";
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Remove Product from Database" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter the phone number of the customer you want to remove: ";
+            std::getline(std::cin, productName);
+            std::cout << '\n';
+
+            if (!system_.containsProduct(productName)) {
+                std::cout << "Error. Product does not exist." << '\n';
+                return;
+            }
+            
+            Product product = system_.getProduct(productName);
+            system_.removeProduct(product);
+
+            std::cout << "Successfully removed product." << '\n';
         }
 
         void signIn() {
