@@ -9,7 +9,7 @@ class Product {
         std::string name_;
         float price_;
     public:
-        Product() : department_("NULL"), name_("NULL"), price_(-1.0f) {}
+        Product() : department_("NULL"), name_("NULL"), price_(0.00f) {}
 
         Product(const std::string& department, const std::string& name, const float& price) : department_(department), name_(name), price_(price) {}
 
