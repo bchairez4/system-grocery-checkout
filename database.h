@@ -26,7 +26,7 @@ class Database {
         Database(const Database& other) : cashiers_(other.cashiers_), customers_(other.customers_), products_(other.products_) {}
 
         ~Database() {
-            save();
+            saveCustomers();
         }
 
         Database& operator=(const Database& other) {
@@ -126,7 +126,7 @@ class Database {
             for (std::unordered_map<std::string, Product>::const_iterator it = products_.cbegin(); it != products_.cend(); ++it) {
                 std::cout << it->second.getDepartment() << " " 
                           << it->second.getName() << " " 
-                          << it->second.getPrice() << '\n';
+                          << std::fixed << std::setprecision(2) << it->second.getPrice() << '\n';
             }
         }
 
@@ -135,7 +135,7 @@ class Database {
                 if (it->second.getDepartment() == department) {
                     std::cout << it->second.getDepartment() << " " 
                               << it->second.getName() << " " 
-                              << it->second.getPrice() << '\n';
+                              << std::fixed << std::setprecision(2) << it->second.getPrice() << '\n';
                 }
             }
         }
@@ -257,7 +257,7 @@ class Database {
             for (std::unordered_map<std::string, Product>::iterator it = products_.begin(); it != products_.end(); ++it) {
                 file << it->second.getDepartment() << " "
                      << it->second.getName() << " "
-                     << it->second.getPrice() << '\n';
+                     << std::fixed << std::setprecision(2) << it->second.getPrice() << '\n';
             }
         }
 
