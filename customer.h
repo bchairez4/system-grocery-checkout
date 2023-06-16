@@ -1,6 +1,7 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 
+#include <iomanip>
 #include "product.h"
 #include "person.h"
 
@@ -115,7 +116,7 @@ class Customer : public Person {
         void displayCart() const {
             std::cout << "Current Cart:" << '\n';
             for (std::vector<Product>::const_iterator it = cart_.cbegin(); it != cart_.cend(); ++it) {
-                std::cout << it->getName() << " " << it->getPrice() << '\n';
+                std::cout << it->getName() << " " << std::fixed << std::setprecision(2) << it->getPrice() << '\n';
             }
             std::cout << '\n';
         }
