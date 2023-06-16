@@ -3,6 +3,7 @@
 
 #include "product.h"
 #include <iostream>
+#include <iomanip>
 #include <vector>
 
 class Receipt {
@@ -68,7 +69,7 @@ class Receipt {
                 std::cout << "Reward discount: -$3.00" << '\n';
             }
 
-            std::cout << "Balance Due: $" << balanceDue_ << '\n';
+            std::cout << "Balance Due: $" << std::fixed << std::setprecision(2) << balanceDue_ << '\n';
             std::cout << "Tender Received: $" <<  tenderReceived_ << '\n';
             std::cout << "Change: $" << changeDue_ << '\n';
             std::cout << '\n';
