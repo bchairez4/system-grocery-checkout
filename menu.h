@@ -420,8 +420,10 @@ class Menu {
             std::cout << '\n';
 
             if (!system_.containsCustomer(phoneNumber)) {
-                char response = 'n';
                 std::cout << "Error. Number not associated to an account." << '\n';
+                std::cout << '\n';
+
+                char response = 'n';
                 std::cout << "Sign Up instead? (y or n): ";
                 std::cin.get(response);
                 std::cin.ignore(100, '\n');
@@ -461,6 +463,24 @@ class Menu {
             std::cin >> phoneNumber;
             std::cin.ignore();
             std::cout << '\n';
+
+            if (system_.containsCustomer(phoneNumber)) {
+                std::cout << "Error. Phone number provided is already associated to a customer." << '\n';
+                std::cout << '\n';
+
+                char response = 'n';
+                std::cout << "Sign In instead? (y or n): ";
+                std::cin.get(response);
+                std::cin.ignore(100, '\n');
+                std::cout << '\n';
+
+                if (response != 'n') {
+                    signIn();
+                    return;
+                }
+
+                return;
+            }
 
             Customer newCustomer(firstName, lastName, phoneNumber, rewardPoints);
             system_.addCustomer(newCustomer);
@@ -574,7 +594,7 @@ class Menu {
         }
 
         void checkout() {
-            int tenderReceived = 0;
+            float tenderReceived = 0;
 
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Checkout" << '\n';
