@@ -125,7 +125,7 @@ class Register {
             file << '\n';
 
             for (int i = 0; i < productList_.size(); ++i) {
-                file << productList_[i].getName() << " " << productList_[i].getPrice() << '\n';
+                file << productList_[i].getName() << " " << std::fixed << std::setprecision(2) << productList_[i].getPrice() << '\n';
             }
 
             file << '\n';
@@ -134,7 +134,7 @@ class Register {
                 file << "Reward Discount: -$3.00" << '\n';
             }
 
-            file << "Balance Due: $" << balanceDue_ << '\n';
+            file  << std::fixed << std::setprecision(2) << "Balance Due: $" << balanceDue_ << '\n';
             file << "Tender Received: $" <<  tenderReceived_ << '\n';
             file << "Change: $" << changeDue_ << '\n';
             file << '\n';
