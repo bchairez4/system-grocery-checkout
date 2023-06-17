@@ -71,6 +71,7 @@ class Lane {
 
         float closeRegister() {
             if (!isAssigned()) {
+                std::cout << "Error. Register is not assigned to a cashier." << '\n';
                 return 0.00f;
             }
 
