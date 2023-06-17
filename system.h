@@ -100,7 +100,10 @@ class System {
 
         void closeOutCashier() {
             float deposit = lane_.closeRegister();
-            updateProfit(deposit);
+
+            if (deposit != 0.00f) {
+                updateProfit(deposit);
+            }
         }
 
         void addCashier(const Cashier& cashier) {
