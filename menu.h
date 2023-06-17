@@ -380,6 +380,7 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Profit: $" << system_.getProfit() << '\n';
             std::cout << "Remember, a cashier must check out and in order to deposit profits." << '\n';
+            std::cout << '\n';
         }
 
         void displayCashierDatabase() {
@@ -388,6 +389,7 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
 
             system_.displayCashierDatabase();
+            std::cout << '\n';
         }
 
         void addCashierToDatabase() {
@@ -420,6 +422,7 @@ class Menu {
             system_.addCashier(newCashier);
 
             std::cout << "Successfully added " << firstName << "." << '\n';
+            std::cout << '\n';
         }
 
         void removeCashierFromDatabase() {
@@ -442,6 +445,7 @@ class Menu {
             system_.removeCashier(system_.getCashier(pin));
 
             std::cout << "Successfully removed cashier."  << '\n';
+            std::cout << '\n';
         }
 
         void updateCashier() {
@@ -475,6 +479,7 @@ class Menu {
             system_.updateCashier(system_.getCashier(pin), updatedCashier);
 
             std::cout << "Successfully updated cashier." << '\n';
+            std::cout << '\n';
         }
 
         void assignCashier() {
@@ -524,6 +529,7 @@ class Menu {
             system_.assignCashier(system_.getCashier(pin));
 
             std::cout << "Successfully assigned new cashier." << '\n';
+            std::cout << '\n';
         }
 
         void displayCustomerDatabase() {
@@ -532,6 +538,7 @@ class Menu {
             std::cout << "--------------------------------------------------------------------" << '\n';
 
             system_.displayCustomerDatabase();
+            std::cout << '\n';
         }
 
         void addCustomerToDatabase() {
@@ -564,6 +571,7 @@ class Menu {
             system_.addCustomer(newCustomer);
 
             std::cout << "Successfully added " << firstName << "." << '\n';
+            std::cout << '\n';
         }
 
         void removeCustomerFromDatabase() {
@@ -586,6 +594,7 @@ class Menu {
             system_.removeCustomer(system_.getCustomer(phoneNumber));
 
             std::cout << "Successfully removed customer." << '\n';
+            std::cout << '\n';
         }
 
         void displayProductDatabase() {
@@ -626,6 +635,7 @@ class Menu {
             system_.addProduct(newProduct);
 
             std::cout << "Successfully added " << productName << "." << '\n';
+            std::cout << '\n';
         }
 
         void removeProductFromDatabase() {
@@ -647,6 +657,7 @@ class Menu {
             system_.removeProduct(system_.getProduct(productName));
 
             std::cout << "Successfully removed product." << '\n';
+            std::cout << '\n';
         }
 
         void updateProduct() {
@@ -674,6 +685,7 @@ class Menu {
             system_.updateProductPrice(system_.getProduct(productName), updatedPrice);
 
             std::cout << "Successfully updated " << system_.getProduct(productName).getName() << "." << '\n';
+            std::cout << '\n';
         }
 
         void signIn() {
@@ -899,6 +911,7 @@ class Menu {
             }
 
             system_.checkoutCustomer(tenderReceived);
+            std::cout << '\n';
         }
 };
 
