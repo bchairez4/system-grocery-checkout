@@ -26,7 +26,7 @@ class Database {
         Database(const Database& other) : cashiers_(other.cashiers_), customers_(other.customers_), products_(other.products_) {}
 
         ~Database() {
-            saveCustomers();
+            save();
         }
 
         Database& operator=(const Database& other) {
