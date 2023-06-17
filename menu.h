@@ -13,8 +13,8 @@ class Menu {
             char input = ' ';
             while (input != 'q') {
                 if (system_.adminSignIn()) {
-                    displayAdminMenu();
-                    input = adminMenu();
+                    displayAdminMainMenu();
+                    input = adminMainMenu();
                 } else if (system_.customerSignedIn()) {
                     displayCustomerRewardMenu();
                     input = customerRewardMenu();
@@ -49,20 +49,61 @@ class Menu {
             std::cout << "Hope to see you again soon." << '\n';
         }
 
-        void displayAdminMenu() const {
+        void displayAdminMainMenu() const {
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Main Menu" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "1) Admin Menu" << '\n';
+            std::cout << "2) Cashier Menu" << '\n';
+            std::cout << "3) Customer Menu" << '\n';
+            std::cout << "4) Product Menu" << '\n';
+            std::cout << "5) Exit" << '\n';
+        }
+
+        void displayAdminMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Admin Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "1) View profits" << '\n';
+            std::cout << "2) <- Go back" << '\n';
+            std::cout << "3) Exit" << '\n';
+        }
+
+        void displayAdminCashierMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Admin Cashier Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "1) Display Cashier Database" << '\n';
             std::cout << "2) Add Cashier to Database" << '\n';
-            std::cout << "3) Remove Cashier From Database" << '\n';
-            std::cout << "4) Display Customer Database" << '\n';
-            std::cout << "5) Add Customer To Database" << '\n';
-            std::cout << "6) Remove Customer From Database" << '\n';
-            std::cout << "7) Display Product Database" << '\n';
-            std::cout << "8) Add Product To Database" << '\n';
-            std::cout << "9) Remove Product From Database" << '\n';
-            std::cout << "0) Exit" << '\n';
+            std::cout << "3) Remove Cashier from Database" << '\n';
+            std::cout << "4) Update Cashier" << '\n';
+            std::cout << "5) Assign Cashier" << '\n';
+            std::cout << "6) Close Out Cashier" << '\n';
+            std::cout << "7) <- Go back" << '\n';
+            std::cout << "8) Exit" << '\n';
+        }
+
+        void displayAdminCustomerMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Admin Customer Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "1) Display Customer Database" << '\n';
+            std::cout << "2) Add Customer to Database" << '\n';
+            std::cout << "3) Remove Customer from Database" << '\n';
+            std::cout << "4) <- Go back" << '\n';
+            std::cout << "5) Exit" << '\n';
+        }
+
+        void displayAdminProductMenu() const {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Admin Product Menu" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "1) Display Product Database" << '\n';
+            std::cout << "2) Add Product to Database" << '\n';
+            std::cout << "3) Remove Product from Database" << '\n';
+            std::cout << "4) Update Product" << '\n';
+            std::cout << "5) <- Go back" << '\n';
+            std::cout << "6) Exit" << '\n';
         }
 
         void displayCustomerMenu() const {
@@ -96,7 +137,64 @@ class Menu {
             std::cout << '\n';
         }
         
+        char adminMainMenu() {
+            char input = ' ';
+            std::cin.get(input);
+            std::cin.ignore(100, '\n');
+            std::cout << '\n';
+
+            switch(input) {
+                case '1':
+                    displayAdminMenu();
+                    input = adminMenu();
+                    break;
+                case '2':
+                    displayAdminCashierMenu();
+                    input = adminCashierMenu();
+                    break;
+                case '3':
+                    displayAdminCustomerMenu();
+                    input = adminCustomerMenu();
+                    break;
+                case '4':
+                    displayAdminProductMenu();
+                    input = adminProductMenu();
+                    break;
+                case '5':
+                    return 'q';
+                    break;
+                default:
+                    std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
+            }
+
+            return input;
+        }
+
         char adminMenu() {
+            char input = ' ';
+            std::cin.get(input);
+            std::cin.ignore(100, '\n');
+            std::cout << '\n';
+
+            switch(input) {
+                case '1':
+                    viewProfits();
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    return 'q';
+                    break;
+                default:
+                    std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
+            }
+
+            return input;
+        }
+
+        char adminCashierMenu() {
             char input = ' ';
             std::cin.get(input);
             std::cin.ignore(100, '\n');
@@ -113,24 +211,78 @@ class Menu {
                     removeCashierFromDatabase();
                     break;
                 case '4':
-                    displayCustomerDatabase();
+                    updateCashier();
                     break;
                 case '5':
-                    addCustomerToDatabase();
+                    assignCashier();
                     break;
                 case '6':
-                    removeCustomerFromDatabase();
+                    closeOutCashier();
                     break;
                 case '7':
-                    displayProductDatabase();
                     break;
                 case '8':
+                    return 'q';
+                    break;
+                default:
+                    std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
+            }
+
+            return input;
+        }
+
+        char adminCustomerMenu() {
+            char input = ' ';
+            std::cin.get(input);
+            std::cin.ignore(100, '\n');
+            std::cout << '\n';
+
+            switch(input) {
+                case '1':
+                    displayCustomerDatabase();
+                    break;
+                case '2':
+                    addCustomerToDatabase();
+                    break;
+                case '3':
+                    removeCustomerFromDatabase();
+                    break;
+                case '4':
+                    break;
+                case '5':
+                    return 'q';
+                    break;
+                default:
+                    std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
+            }
+
+            return input;
+        }
+
+        char adminProductMenu() {
+            char input = ' ';
+            std::cin.get(input);
+            std::cin.ignore(100, '\n');
+            std::cout << '\n';
+
+            switch(input) {
+                case '1':
+                    displayProductDatabase();
+                    break;
+                case '2':
                     addProductToDatabase();
                     break;
-                case '9':
+                case '3':
                     removeProductFromDatabase();
                     break;
-                case '0':
+                case '4':
+                    updateProduct();
+                    break;
+                case '5':
+                    break;
+                case '6':
                     return 'q';
                     break;
                 default:
@@ -216,9 +368,18 @@ class Menu {
                     break;
                 default:
                     std::cout << "Please type a valid choice followed by pressing \'enter\'." << '\n';
+                    break;
             }
 
             return input;
+        }
+
+        void viewProfits() {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Store Profit" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Profit: $" << system_.getProfit() << '\n';
+            std::cout << "Remember, a cashier must check out and in order to deposit profits." << '\n';
         }
 
         void displayCashierDatabase() {
@@ -258,7 +419,7 @@ class Menu {
             Cashier newCashier(pin, firstName, lastName);
             system_.addCashier(newCashier);
 
-            std::cout << "Successfully added cashier." << '\n';
+            std::cout << "Successfully added " << firstName << "." << '\n';
         }
 
         void removeCashierFromDatabase() {
@@ -278,10 +439,91 @@ class Menu {
                 return;
             }
 
-            Cashier cashier = system_.getCashier(pin);
-            system_.removeCashier(cashier);
+            system_.removeCashier(system_.getCashier(pin));
 
             std::cout << "Successfully removed cashier."  << '\n';
+        }
+
+        void updateCashier() {
+            int pin = -1;
+            std::string firstName, lastName = "";
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Update Cashier" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter the pin of the cashier you want to update: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (!system_.containsCashier(pin)) {
+                std::cout << "Error. Cashier does not exist in the database." << '\n';
+                return;
+            }
+
+            std::cout << "Enter the new first name (or press \'enter\' to skip): ";
+            std::getline(std::cin, firstName);
+            std::cout << '\n';
+
+            std::cout << "Enter the new last name (or press \'enter\' to skip): ";
+            std::getline(std::cin, lastName);
+            std::cout << '\n';
+
+
+            Cashier updatedCashier(pin, firstName, lastName);
+            system_.updateCashier(system_.getCashier(pin), updatedCashier);
+
+            std::cout << "Successfully updated cashier." << '\n';
+        }
+
+        void assignCashier() {
+            int pin = -1;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Assign Cashier" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            std::cout << "Enter the pin of the cashier you want to assign: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            if (!system_.containsCashier(pin)) {
+                std::cout << "Error. Cashier does not exist in the database." << '\n';
+                return;
+            }
+
+            system_.assignCashier(system_.getCashier(pin));
+
+            std::cout << "Successfully assigned " << system_.getCashier(pin).getFirstName() << " to the register." << '\n';
+        }
+
+        void closeOutCashier() {
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Close Out Cashier" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+
+            system_.closeOutCashier();
+            std::cout << "Successfully closed out cashier." << '\n';
+
+            int pin = -1;
+            std::cout << "Enter pin of new cashier to be assigned: " << '\n';
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            while (!system_.containsCashier(pin)) {
+                std::cout << "Error. Pin provided is not associated to an existing cashier." << '\n';
+                std::cout << "Try again: ";
+                std::cin >> pin;
+                std::cin.ignore();
+                std::cout << '\n';
+            }
+            
+            system_.assignCashier(system_.getCashier(pin));
+
+            std::cout << "Successfully assigned new cashier." << '\n';
         }
 
         void displayCustomerDatabase() {
@@ -320,6 +562,8 @@ class Menu {
             
             Customer newCustomer(firstName, lastName, phoneNumber, 0);
             system_.addCustomer(newCustomer);
+
+            std::cout << "Successfully added " << firstName << "." << '\n';
         }
 
         void removeCustomerFromDatabase() {
@@ -339,8 +583,7 @@ class Menu {
                 return;
             }
             
-            Customer customer = system_.getCustomer(phoneNumber);
-            system_.removeCustomer(customer);
+            system_.removeCustomer(system_.getCustomer(phoneNumber));
 
             std::cout << "Successfully removed customer." << '\n';
         }
@@ -382,7 +625,7 @@ class Menu {
             Product newProduct(department, productName, price);
             system_.addProduct(newProduct);
 
-            std::cout << "Successfully added product." << '\n';
+            std::cout << "Successfully added " << productName << "." << '\n';
         }
 
         void removeProductFromDatabase() {
@@ -401,10 +644,36 @@ class Menu {
                 return;
             }
             
-            Product product = system_.getProduct(productName);
-            system_.removeProduct(product);
+            system_.removeProduct(system_.getProduct(productName));
 
             std::cout << "Successfully removed product." << '\n';
+        }
+
+        void updateProduct() {
+            std::string productName = "";
+            float updatedPrice = 0.00f;
+
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            std::cout << "Update Product" << '\n';
+            std::cout << "--------------------------------------------------------------------" << '\n';
+            
+            std::cout << "Enter the name of the product you want to update: ";
+            std::getline(std::cin, productName);
+            std::cout << '\n';
+
+            if (!system_.containsProduct(productName)) {
+                std::cout << "Error. Product does not exist." << '\n';
+                return;
+            }
+
+            std::cout << "Enter the updated updatedPrice: ";
+            std::cin >> updatedPrice;
+            std::cin.ignore();
+            std::cout << '\n';
+
+            system_.updateProductPrice(system_.getProduct(productName), updatedPrice);
+
+            std::cout << "Successfully updated " << system_.getProduct(productName).getName() << "." << '\n';
         }
 
         void signIn() {
@@ -541,8 +810,7 @@ class Menu {
                 return;
             }
 
-            Product product = system_.getProduct(productName);
-            system_.removeProductFromCart(product);
+            system_.removeProductFromCart(system_.getProduct(productName));
 
             std::cout << "Removed " << productName << " from cart." << '\n';
             std::cout << '\n';
