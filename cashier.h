@@ -18,8 +18,12 @@ class Cashier : public Person {
         ~Cashier() {}
 
         Cashier& operator=(const Cashier& other) {
-            setFirstName(other.getFirstName());
-            setLastName(other.getLastName());
+            if (!other.getFirstName().empty()) {
+                setFirstName(other.getFirstName());
+            }
+            if (!other.getLastName().empty()) {
+                setLastName(other.getLastName());
+            }
             pin_  = other.pin_;
             return *this;
         }
