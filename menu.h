@@ -51,7 +51,7 @@ class Menu {
 
         void displayAdminMainMenu() const {
             std::cout << "--------------------------------------------------------------------" << '\n';
-            std::cout << "Main Menu" << '\n';
+            std::cout << "Admin Main Menu" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "1) Admin Menu" << '\n';
             std::cout << "2) Cashier Menu" << '\n';
@@ -379,7 +379,7 @@ class Menu {
             std::cout << "Store Profit" << '\n';
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Profit: $" << system_.getProfit() << '\n';
-            std::cout << "Remember, a cashier must check out and in order to deposit profits." << '\n';
+            std::cout << "*Remember, a cashier must check out and in order to deposit profits.*" << '\n';
             std::cout << '\n';
         }
 
