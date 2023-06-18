@@ -27,8 +27,12 @@ class Customer : public Person {
         ~Customer() {}
 
         Customer& operator=(const Customer& other) {
-            setFirstName(other.getFirstName());
-            setLastName(other.getLastName());
+            if (!other.getFirstName().empty()) {
+                setFirstName(other.getFirstName());
+            }
+            if (!other.getLastName().empty()) {
+                setLastName(other.getLastName());
+            }
             phoneNumber_ = other.phoneNumber_;
             rewardPoints_ = other.rewardPoints_;
             cart_.clear();
