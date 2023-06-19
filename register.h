@@ -100,7 +100,7 @@ class Register {
         }
 
         float checkout(const float& tenderReceived, const float& discount) {
-            balanceDue_ -= discount;
+            balanceDue_ = (balanceDue_ - discount >= 0.00f) ? (balanceDue_ - discount) : 0.00f;
             tenderReceived_  = tenderReceived;
             changeDue_ = tenderReceived_ - balanceDue_; 
             depositBalance_ += balanceDue_;
