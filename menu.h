@@ -891,7 +891,7 @@ class Menu {
                 std::cout << '\n' << "Reward discount: -$3.00" << '\n';
             }
 
-            std::cout << "Amount Due: " << system_.getCustomerCartTotal() << '\n';
+            std::cout << "Amount Due: $" << system_.getCustomerCartTotal() << '\n';
             std::cout << '\n';
 
             std::cout << "Pay Amount: $";
