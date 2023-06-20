@@ -4,8 +4,8 @@
 #include "cashier.h"
 #include "customer.h"
 #include "product.h"
-#include <unordered_map>
 #include <fstream>
+#include <unordered_map>
 
 #define CASHIERS "cashiers.txt"
 #define CUSTOMERS "customers.txt"
@@ -67,6 +67,25 @@ class Database {
             std::unordered_map<std::string, Product>::const_iterator it = products_.find(name);
 
             return it->second;
+        }
+
+        std::vector<std::string> getProductDepartments() const {
+            std::unordered_map<std::string, int> departments;
+
+            for (std::unordered_map<std::string, Product>::const_iterator it = products_.cbegin(); it != products_.cend(); ++it) {
+                if (departments.find(it->second.getDepartment()) != departments.end()) {
+                    continue;
+                } else {
+                    departments.insert({it->second.getDepartment(), 1});
+                }
+            }
+
+            std::vector<std::string> departmentVector;
+            for (std::unordered_map<std::string, int>::const_iterator it = departments.cbegin(); it != departments.cend(); ++it) {
+                departmentVector.push_back(it->first);
+            }
+
+            return departmentVector;
         }
 
         bool authenticateCashier(const int& pin) const {
