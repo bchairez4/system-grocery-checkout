@@ -53,7 +53,10 @@ class System {
         }
 
         void displayProductDatabase() const {
-            database_.displayProductDatabase();
+            std::vector<std::string> departmentVector = database_.getProductDepartments();
+            for (int i = 0; i < departmentVector.size(); ++i) {
+                database_.displayProductDatabaseByDepartment(departmentVector[i]);
+            }
         }
 
         void displayProductDatabaseByDepartment(const std::string& department) const {
