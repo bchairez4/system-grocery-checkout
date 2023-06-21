@@ -88,7 +88,6 @@ class Register {
             balanceDue_ += product.getPrice();
         }
 
-        // erases first found instance of given product
         void removeProduct(const Product& product) {
             for (std::vector<Product>::iterator it = productList_.begin(); it != productList_.end(); ++it) {
                 if (it->getName() == product.getName()) {
@@ -125,7 +124,7 @@ class Register {
             file << '\n';
 
             for (int i = 0; i < productList_.size(); ++i) {
-                file << productList_[i].getName() << " " << std::fixed << std::setprecision(2) << productList_[i].getPrice() << '\n';
+                file << productList_[i].getName() << " $" << std::fixed << std::setprecision(2) << productList_[i].getPrice() << '\n';
             }
 
             file << '\n';
@@ -145,10 +144,9 @@ class Register {
         void printReceipt(const bool& discount) {
             Receipt receipt(productList_, balanceDue_, tenderReceived_, changeDue_);
 
-            //save receipt to history of receipts
             generateReceipt(discount);
-            std::cout << "Your receipt has been printed. See you again soon" << '\n';
             receipts_.push_back(receipt);
+            std::cout << "Your receipt has been printed. See you again soon" << '\n';
 
             //reset variables for next transaction
             balanceDue_ = 0.00f;
@@ -157,7 +155,6 @@ class Register {
             productList_.clear();
         }
 
-        // Closing the register has to take out money made
         float close() {
             Cashier null_cashier;
             cashier_ = null_cashier;
