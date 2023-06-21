@@ -874,7 +874,7 @@ class Menu {
         }
 
         void checkout() {
-            float tenderReceived = 0;
+            float tenderReceived = 0.00f;
 
             std::cout << "--------------------------------------------------------------------" << '\n';
             std::cout << "Checkout" << '\n';
@@ -894,10 +894,14 @@ class Menu {
             std::cout << "Amount Due: $" << system_.getCustomerCartTotal() << '\n';
             std::cout << '\n';
 
-            std::cout << "Pay Amount: $";
-            std::cin >> tenderReceived;
-            std::cin.ignore();
-            std::cout << '\n';
+            if (system_.getCustomerCartTotal() != 0.00f) {
+                std::cout << "Pay Amount: $";
+                std::cin >> tenderReceived;
+                std::cin.ignore();
+                std::cout << '\n';
+            } else {
+                std::cout << "Thank you for your continued support!" << '\n';
+            }
 
             if (tenderReceived < system_.getCustomerCartTotal()) {
                 while (tenderReceived < system_.getCustomerCartTotal()) {
