@@ -61,7 +61,7 @@ class Receipt {
             std::cout << '\n';
 
             for (std::vector<Product>::const_iterator it = productList_.begin(); it != productList_.end(); ++it) {
-                std::cout << it->getName() << " " << it->getPrice() << '\n';
+                std::cout << it->getName() << " $" << it->getPrice() << '\n';
             }
             std::cout << '\n';
 
